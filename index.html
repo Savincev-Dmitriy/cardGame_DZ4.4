@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Карточная игра</title>
+        <link rel="stylesheet" href="./cardGame/style.css" />
+    <script defer src="./dist/bundle.js"></script><link href="./dist/main.css" rel="stylesheet"></head>
+    <body>
+        <div class="app"></div>
+        <script>
+            window.application = {
+                blocks: {},
+                screens: {},
+                renderScreen: function (screenName) {
+                    if (!window.application.screens[screenName]) {
+                        throw new Error("Введенный экран не существует");
+                        return;
+                    }
+                    window.application.screens[screenName](container);
+                },
+                renderBlock: function (blockName, container) {
+                    if (!window.application.blocks[blockName]) {
+                        throw new Error("Введенный блок не существует");
+                        return;
+                    }
+                    window.application.blocks[blockName](container);
+                },
+                challenge: "",
+                status: "",
+                timerPlaying: [],
+                generatedCards: "",
+                pickedCards: [],
+            };
+
+            const container = document.querySelector(".app");
+
+            const shuffledCardList = [
+                {
+                    id: 1,
+                    name: "ace-of-clubs",
+                    img: "./dist/static/ace-of-clubs.png",
+                },
+                {
+                    id: 2,
+                    name: "king-of-clubs",
+                    img: "./dist/static/king-of-clubs.png",
+                },
+                {
+                    id: 3,
+                    name: "lady-of-clubs",
+                    img: "./dist/static/lady-of-clubs.png",
+                },
+                {
+                    id: 4,
+                    name: "jack-of-clubs",
+                    img: "./dist/static/jack-of-clubs.png",
+                },
+                {
+                    id: 5,
+                    name: "ten-of-clubs",
+                    img: "./dist/static/ten-of-clubs.png",
+                },
+                {
+                    id: 6,
+                    name: "nine-of-clubs",
+                    img: "./dist/static/nine-of-clubs.png",
+                },
+                {
+                    id: 7,
+                    name: "eight-of-clubs",
+                    img: "./dist/static/eight-of-clubs.png",
+                },
+                {
+                    id: 8,
+                    name: "seven-of-clubs",
+                    img: "./dist/static/seven-of-clubs.png",
+                },
+                {
+                    id: 9,
+                    name: "six-of-clubs",
+                    img: "./dist/static/six-of-clubs.png",
+                },
+                {
+                    id: 10,
+                    name: "ace-of-diamonds",
+                    img: "./dist/static/ace-of-diamonds.png",
+                },
+                {
+                    id: 11,
+                    name: "king-of-diamonds",
+                    img: "./dist/static/king-of-diamonds.png",
+                },
+                {
+                    id: 12,
+                    name: "lady-of-diamonds",
+                    img: "./dist/static/lady-of-diamonds.png",
+                },
+                {
+                    id: 13,
+                    name: "jack-of-diamonds",
+                    img: "./dist/static/jack-of-diamonds.png",
+                },
+                {
+                    id: 14,
+                    name: "ten-of-diamonds",
+                    img: "./dist/static/ten-of-diamonds.png",
+                },
+                {
+                    id: 15,
+                    name: "nine-of-diamonds",
+                    img: "./dist/static/nine-of-diamonds.png",
+                },
+                {
+                    id: 16,
+                    name: "eight-of-diamonds",
+                    img: "./dist/static/eight-of-diamonds.png",
+                },
+                {
+                    id: 17,
+                    name: "seven-of-diamonds",
+                    img: "./dist/static/seven-of-diamonds.png",
+                },
+                {
+                    id: 18,
+                    name: "six-of-diamonds",
+                    img: "./dist/static/six-of-diamonds.png",
+                },
+                {
+                    id: 19,
+                    name: "ace-of-hearts",
+                    img: "./dist/static/ace-of-hearts.png",
+                },
+                {
+                    id: 20,
+                    name: "king-of-hearts",
+                    img: "./dist/static/king-of-hearts.png",
+                },
+                {
+                    id: 21,
+                    name: "lady-of-hearts",
+                    img: "./dist/static/lady-of-hearts.png",
+                },
+                {
+                    id: 22,
+                    name: "jack-of-hearts",
+                    img: "./dist/static/jack-of-hearts.png",
+                },
+                {
+                    id: 23,
+                    name: "ten-of-hearts",
+                    img: "./dist/static/ten-of-hearts.png",
+                },
+                {
+                    id: 24,
+                    name: "nine-of-hearts",
+                    img: "./dist/static/nine-of-hearts.png",
+                },
+                {
+                    id: 25,
+                    name: "eight-of-hearts",
+                    img: "./dist/static/eight-of-hearts.png",
+                },
+                {
+                    id: 26,
+                    name: "seven-of-hearts",
+                    img: "./dist/static/seven-of-hearts.png",
+                },
+                {
+                    id: 27,
+                    name: "six-of-hearts",
+                    img: "./dist/static/six-of-hearts.png",
+                },
+                {
+                    id: 28,
+                    name: "ace-of-spades",
+                    img: "./dist/static/ace-of-spades.png",
+                },
+                {
+                    id: 29,
+                    name: "king-of-spades",
+                    img: "./dist/static/king-of-spades.png",
+                },
+                {
+                    id: 30,
+                    name: "lady-of-spades",
+                    img: "./dist/static/lady-of-spades.png",
+                },
+                {
+                    id: 31,
+                    name: "jack-of-spades",
+                    img: "./dist/static/jack-of-spades.png",
+                },
+                {
+                    id: 32,
+                    name: "ten-of-spades",
+                    img: "./dist/static/ten-of-spades.png",
+                },
+                {
+                    id: 33,
+                    name: "nine-of-spades",
+                    img: "./dist/static/nine-of-spades.png",
+                },
+                {
+                    id: 34,
+                    name: "eight-of-spades",
+                    img: "./dist/static/eight-of-spades.png",
+                },
+                {
+                    id: 35,
+                    name: "seven-of-spades",
+                    img: "./dist/static/seven-of-spades.png",
+                },
+                {
+                    id: 36,
+                    name: "six-of-spades",
+                    img: "./dist/static/six-of-spades.png",
+                },
+            ];
+        </script>
+        <script src="./cardGame/lib/request.js"></script>
+        <script src="./cardGame/startPage.js"></script>
+        <script src="./cardGame/easyChallenge.js"></script>
+        <script src="./cardGame/mediumChallenge.js"></script>
+        <script src="./cardGame/hardChallenge.js"></script>
+        <script src="./cardGame/cardListData.js"></script>
+    </body>
+</html>
