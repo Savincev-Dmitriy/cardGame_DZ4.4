@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Savincev-Dmitriy/cardGame_DZ4.3.git"
+    "url": "git+https://github.com/Savincev-Dmitriy/cardGame_DZ4.4.git"
   },
   "author": "savincev.dima@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Savincev-Dmitriy/cardGame_DZ4.3/issues"
+    "url": "https://github.com/Savincev-Dmitriy/cardGame_DZ4.4/issues"
   },
-  "homepage": "https://github.com/Savincev-Dmitriy/cardGame_DZ4.3#readme",
+  "homepage": "https://github.com/Savincev-Dmitriy/cardGame_DZ4.4#readme",
   "devDependencies": {
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
